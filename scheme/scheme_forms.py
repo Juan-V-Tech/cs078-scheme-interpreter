@@ -115,7 +115,15 @@ def do_and_form(expressions, env):
     False
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return True
+    while expressions is not nil:
+        value = scheme_eval(expressions.first, env)
+        if is_scheme_false(value):
+            return value
+        if expressions.rest is nil:
+            return value
+        expressions = expressions.rest
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
@@ -133,7 +141,15 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return False
+    while expressions is not nil:
+        value = scheme_eval(expressions.first, env)
+        if is_scheme_true(value):
+            return value
+        if expressions.rest is nil:
+            return value
+        expressions = expressions.rest
     # END PROBLEM 12
 
 def do_cond_form(expressions, env):
@@ -153,7 +169,9 @@ def do_cond_form(expressions, env):
             test = scheme_eval(clause.first, env)
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
-            "*** YOUR CODE HERE ***"
+            if clause.rest is nil:
+                return test
+            return eval_all(clause.rest, env)
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -219,7 +237,7 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 11
-    "*** YOUR CODE HERE ***"
+    return MuProcedure(formals, expressions.rest)
     # END PROBLEM 11
 
 
